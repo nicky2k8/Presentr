@@ -269,6 +269,14 @@ extension PresentrController {
         presentedView!.frame = frameOfPresentedViewInContainerView
     }
     
+    override func containerViewDidLayoutSubviews() {
+        guard !keyboardIsShowing else {
+            return // prevent resetting of presented frame when the frame is being translated
+        }
+
+        chromeView.frame = containerFrame
+        presentedView!.frame = frameOfPresentedViewInContainerView
+    }
     // MARK: Animation
     
     override func presentationTransitionWillBegin() {
